@@ -6,6 +6,15 @@
 # Restore icon to Dock
 #     /usr/libexec/PlistBuddy -c 'Delete :LSUIElement' /Applications/iTerm.app/Contents/Info.plist
 
+# Hide files on desktop
+#     defaults write com.apple.finder CreateDesktop false; killall Finder
+
+# Store screen shots outside of desktop
+#     defaults write com.apple.screencapture location ~/stash
+
+# Don't include shadows in stored screenshots
+#     defaults write com.apple.screencapture disable-shadow -bool true; killall SystemUIServer
+
 # Single app mode (only one app is visible at a time)
 #     defaults write com.apple.dock single-app -bool
 
