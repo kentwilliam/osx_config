@@ -1,0 +1,22 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Auto Close HTML Tags",
+		"Babel",
+		"Better CoffeeScript",
+		"Colorsublime",
+		"HTMLBeautify",
+		"Package Control",
+		"Pretty JSON",
+		"Sass",
+		"Seti_UI",
+		"Seti_UX",
+		"SublimeLinter-html-tidy",
+		"Swift",
+		"Theme - Spacegray"
+	]
+}

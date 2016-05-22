@@ -1,0 +1,10 @@
+# alias fix="git diff --name-only | uniq | xargs $EDITOR"
+alias gf="git fetch"
+alias gs="git status"
+alias gco="git checkout"
+alias gci="git commit -m"
+alias gpom="git pull origin master"
+alias gaa="git add --all ."
+alias ga="git add"
+alias gb="git for-each-ref --sort=-committerdate refs/heads/ | gsed -r 's:^\w+\s+commit\s+refs\/heads\/:    - :g' | head -n 15"
+

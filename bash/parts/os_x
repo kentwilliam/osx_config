@@ -1,0 +1,17 @@
+# List of OS X shortcuts that might be useful
+
+# iTerm
+# Remove icon from Dock
+#     /usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' /Applications/iTerm.app/Contents/Info.plist
+# Restore icon to Dock
+#     /usr/libexec/PlistBuddy -c 'Delete :LSUIElement' /Applications/iTerm.app/Contents/Info.plist
+
+# Single app mode (only one app is visible at a time)
+#     defaults write com.apple.dock single-app -bool
+
+# Faster dock hide (slow animation is annoying)
+#     defaults write com.apple.dock autohide-time-modifier -float 0.15;killall Dock
+
+# Faster dock delay (hides immediately)
+#     defaults write com.apple.Dock autohide-delay -float 0; killall Dock
+

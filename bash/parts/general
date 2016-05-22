@@ -1,0 +1,44 @@
+# The best editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# General bash shortcuts and niceties
+alias ..="cd .."
+
+# Folder sizes
+alias folders="find . -maxdepth 1 -type d -print | xargs du -sk | sort -rn"
+
+# This is where you put your hand rolled scripts (remember to chmod them)
+PATH="$HOME/bin:$PATH"
+
+# Better last
+alias last="ls -rt | tail -n 20"
+
+# Sublime Text
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+# Xcode sometimes gets confused, meaning rmderived is handy
+alias rmderived='rm -rf ~/library/Developer/Xcode/DerivedData/*'
+
+# Better prompt
+PS1='\n\[`[ $? = 0 ] && X=2 || X=1; tput setaf $X`\]\h\[`tput sgr0`\]:$PWD\n → '
+
+# Better colors and behavior for ls
+export TERM=xterm-256color
+CLICOLOR=1
+alias ls="ls -G"
+if [ -x /usr/local/bin/gdircolors ]; then
+    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
+    alias ls='gls -F --color=auto'
+    alias lf='ls -FA'
+    alias ll='ls -alh'
+    alias la='ls -A'
+    alias l='ls -CFlh'
+    alias lsd="ls -alF | grep /$"
+    alias dir='gdir --color=auto'
+    alias vdir='gvdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
