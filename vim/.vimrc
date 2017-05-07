@@ -38,6 +38,12 @@
   syntax on
   filetype plugin indent on
 
+" Leader
+  " More convenient leader (key needed to press for some combinations)
+  " Note: this has to come early in this file as various sections depend on
+  " the defined leader
+  let mapleader=","
+
 " General configuration
   " Line numbers - relative + current line with absolute
   set relativenumber
@@ -159,8 +165,6 @@
   " Easy edit/refresh .vimrc
   nnoremap <leader>vv :tabnew $MYVIMRC<CR>
   nnoremap <leader>vs :so $MYVIMRC<CR>
-  " More convenient leader (key needed to press for some combinations)
-  let mapleader=","
 
   " More convenient ESC
   imap jk <Esc>
@@ -199,7 +203,7 @@
 
 " Search
   " Search for word under cursor
-  noremap <C-t> :TBGS <cword><CR>
+  noremap <C-q> :TBGS <cword><CR>
 
   " Clear highlighted search hits with ,+c
   nnoremap <leader>' :nohl<CR>
@@ -245,7 +249,8 @@
 
   " Command-T
     let g:CommandTMaxFiles=10000000000
-    nnoremap <C-o> :CommandT<CR>
+    let g:CommandTFileScanner="watchman"
+    nnoremap <C-t> :CommandT<CR>
     nnoremap <C-b> :CommandTBuffer<CR>
 
   " Buffer navigation
