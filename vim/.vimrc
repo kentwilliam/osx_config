@@ -1,347 +1,304 @@
-" CHEAT SHEET (reminders for a rainy day)
-"
-" "*y
-"     yank to global clipboard (for pasting in other apps)
-"
-" cgn<replacement><Esc>....
-"     replace multiple. Start by searching for something, then mark the first
-"     occurrence and use cgn to replace all
+" This file is formatted for folding by indentation
 
-" LOAD PLUGINS
-" ============
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" Plugin manager
-Plugin 'VundleVim/Vundle.vim'
+" Pre-hooks (vary by environment)
+  if filereadable('~/.vimrc-pre')
+    source '~/.vimrc-pre'
+  endif
 
-" Git integration
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+" Plugins
+  set nocompatible
+  filetype off
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+    Plugin 'VundleVim/Vundle.vim'
 
-" Syntax checking for various languages
-Plugin 'scrooloose/syntastic'
+    " Language support
+    Plugin 'JulesWang/css.vim'
+    Plugin 'chenglou/vim-reason'
+    Plugin 'hhvm/vim-hack'
+    Plugin 'mxw/vim-jsx'
+    Plugin 'mxw/vim-xhp'
+    Plugin 'pangloss/vim-javascript'
 
-" Fuzzy find-anything
-Plugin 'ctrlp.vim'
+    " Navigation improvements
+    Plugin 'jistr/vim-nerdtree-tabs'
+    Plugin 'jlanzarotta/bufexplorer'
+    Plugin 'lifepillar/vim-mucomplete'
+    Plugin 'scrooloose/nerdcommenter'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'wincent/command-t'
 
-" Language support for non-bundled languages
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'lambdatoast/elm.vim.git'
+    " Mercurial integration
+    Plugin 'ludovicchabant/vim-lawrencium'
+    Plugin 'mhinz/vim-signify'
 
-" Fast folder (multi-file) search
-Plugin 'mileszs/ack.vim'
+    " Make gvim-only color schemes work in terminal vim
+    Plugin 'godlygeek/csapprox'
+  call vundle#end()
+  syntax on
+  filetype plugin indent on
 
-" Better ES6 syntax highlighting
-Plugin 'othree/yajs.vim'
+" General configuration
+  " Line numbers - relative + current line with absolute
+  set relativenumber
+  set number
 
-" Color schemes forever!
-Plugin 'flazz/vim-colorschemes'
-Plugin 'vim-misc'
-Plugin 'vim-colorscheme-switcher'
+  " Highlight current line
+  set cul
 
-" Code completion
-"Plugin 'Valloric/YouCompleteMe'
+  " By default, do not wrap text
+  set nowrap
 
-" Provides simpler ways to comment/uncomment lines
-Plugin 'scrooloose/nerdcommenter'
+  " Search
+  set incsearch
+  set ignorecase       " when searching, ignore case ...
+  set smartcase        " except if the search term includes uppercase letters
 
-" Cooler status bar
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+  " Include one blank line at end of all files
+  set endofline
 
-" Code alignment
-Plugin 'godlygeek/tabular'
+  " Various
+  set hidden
 
-" Better buffer explorer
-"Plugin 'fholgado/minibufexpl.vim'
-call vundle#end()
-filetype indent plugin on
+  " Show wildcard options above command line
+  set wildmenu
 
+  " Show unfinished command in bottom right corner of the screen
+  set showcmd
 
+  " Allow backspace to work similarly to desktop editors
+  set backspace=indent,eol,start
 
-" GENERAL CONFIGURATION
-" =====================
+  " Left/right wrap as you'd expect
+  set whichwrap+=h,l
 
-" No line numbers by default
-"set nonumber
-set number
+  " One blank space on the left to give the text a bit of room to breathe
+  set foldenable
+  set foldlevelstart=2
+  set foldcolumn=1
+  "set foldmethod=indent
 
-" Highlight current line, which is obviously desirable
-set cul
+  " Auto indent new lines
+  set autoindent
+
+  " Don't automatically try to move the cursor to the 'start' of the line
+  set nostartofline
+
+  " Always show a status line
+  set laststatus=2
+
+  " Be helpful by asking the user to confirm instead of failing certain actions
+  set confirm
+
+  " Don't make sounds, make flashes
+  set visualbell
+  set noerrorbells
+
+  " Allow mice
+  set mouse=a
+
+  " Command line height
+  set cmdheight=2
+
+  " When inputting commands, give the user some time to think
+  set notimeout ttimeout ttimeoutlen=200
+
+  " Use two spaces for tabs, and expand tabs to use spaces instead
+  set shiftwidth=2
+  set softtabstop=2
+  set expandtab
+  set list
+  set listchars=tab:>-
+
+  " Store undo history in temp files
+  set undofile
+
+  " Don't redraw mid-macro
+  set lazyredraw
+
+  " Vertical git diff
+  set diffopt+=vertical
+
+  " Show file explorer in a split panel
+  let g:netrw_liststyle=3
+
+  " Remember more
+  set history=1000
+  set undolevels=1000
+
+  " Ignore some files
+  set wildignore=*.swp,*.bak,*.pyc,*.class,*.un~,*coverage/*,*.html
+
+  " Reflect Vim's status in the terminal title bar
+  set title
+
+  " No backup files will be kept around after successful writes
+  set nobackup
+
+  " Don't use swap files
+  set noswapfile
+
+  " Automatically resize split if window is resized
+  autocmd VimResized * wincmd =
 
 " Colors
-set t_Co=256
-set hlsearch
-"colorscheme inkpot
-"colorscheme flatcolor
-colorscheme newspaper
+  set background=dark
+  set t_Co=256
+  colorscheme woju
+  " Nice ones: PaperColor, pride, satori, ashen, getafe, 256-grayvim,
+  " railscasts, woju, apprentice, blackboard, morning, lightning, whitebox,
+  " default, skittles_berry, visualstudio, whitebox, eink, nofrils-dark,
+  " spring-night
+  nnoremap <leader>q :NextColorScheme<CR>
+  nnoremap <leader>; :PrevColorScheme<CR>
+  let &colorcolumn=join(range(81,999),",")
+  highlight ColorColumn ctermbg=234
+  " light: 253
 
-" Syntax coloring is a must
-syntax on
+" Keyboard mappings & shortcuts
+  " Easy edit/refresh .vimrc
+  nnoremap <leader>vv :tabnew $MYVIMRC<CR>
+  nnoremap <leader>vs :so $MYVIMRC<CR>
+  " More convenient leader (key needed to press for some combinations)
+  let mapleader=","
 
-" Raw text files should behave differently than code.
-" Wrap by whole words, get markdown coloring for both txt and md, and activate
-" spell checker
-au BufRead,BufNewFile *.txt set filetype=markdown | setlocal wrap linebreak nolist spell spelllang=en_us
-au BufRead,BufNewFile *.md setlocal wrap linebreak nolist spell spelllang=en_us
+  " More convenient ESC
+  imap jk <Esc>
 
-" Anything else, of course, does not wrap by default
-set nowrap
+  " Make it easier to hit that damn : button
+  nnoremap ; :
+
+  " Avoid typo when trying to save (I don't know what :W does anyway)
+  nnoremap :W :w
+
+  " Ctrl+direction keys jumps to the split window in that direction
+  nnoremap <C-h> <C-w>h
+  nnoremap <C-j> <C-w>j
+  nnoremap <C-k> <C-w>k
+  nnoremap <C-l> <C-w>l
+
+  " Ctrl+space = close active window, tab, or Vim. So handy.
+  nnoremap <NUL> :q<CR>
+
+  " Maximize current window (close splits and leave only active pane)
+  nmap <leader>m :only<CR>
+
+  " Faster sort
+  map <leader>s :sort<CR>
+
+" Copy and paste stuff
+  " S is for 'stamp': Replace word under cursor with yanked content
+  nnoremap S diw"0P
+
+  " move vertically by visual line
+  nnoremap j gj
+  nnoremap k gk
+
+  " Instead of 'yank line', 'yank to end of line' to be consistent with D
+  map Y y$
 
 " Search
-set incsearch
-set ignorecase       " when searching, ignore case ...
-set smartcase        " except if the search term includes uppercase letters
+  " Search for word under cursor
+  noremap <C-t> :TBGS <cword><CR>
+
+  " Clear highlighted search hits with ,+c
+  nnoremap <leader>' :nohl<CR>
+
+  " Ctrl+D to search for visual selection
+  vnoremap <C-d> y/<C-R>"<CR>
+
+" Snippets & Code generation
+  " Insert JS require(): Go to the top, paste the require statement, re-sort, then re-save
+  nnoremap <C-v> gg/const<Return>Oconst <C-r>" = require('<C-r>"');<Esc>V/\v^\n<Return>k:sort<Return>:w<Return>:nohl<Return>
+  " Same, for react component
+  nnoremap <C-z> gg/const<Return>Oconst <C-r>" = require('<C-r>".react');<Esc>V/\v^\n<Return>k:sort<Return>:w<Return>:nohl<Return>
+  " Same, for brands component
+  nnoremap <C-n> gg/const<Return>Oconst <C-r>" = require('<C-r>".brands');<Esc>V/\v^\n<Return>k:sort<Return>:w<Return>:nohl<Return>
+
+" Navigation and files
+  " Saving files
+    " Strip trailing whitespace on save
+    autocmd BufWritePre * :%s/\s\+$//e
+
+    " Create directory when writing file
+    " See http://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+    function! s:MkNonExDir(file, buf) abort
+        if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+            let dir=fnamemodify(a:file, ':h')
+            if !isdirectory(dir)
+                call mkdir(dir, 'p')
+            endif
+        endif
+    endfunction
+    augroup BWCCreateDir
+        autocmd!
+        autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+    augroup END
+
+  " NERDTree
+    let NERDTreeWinSize = 70
+    nnoremap <F3> :NERDTree<CR>:vertical resize 60<CR>
+    " Show current file in tree
+    nnoremap <C-f> :NERDTreeFind<CR>
+    " Toggle/untoggle global tree
+    map <Leader>f :NERDTreeTabsToggle<CR>
+
+  " Command-T
+    let g:CommandTMaxFiles=10000000000
+    nnoremap <C-o> :CommandT<CR>
+    nnoremap <C-b> :CommandTBuffer<CR>
+
+  " Buffer navigation
+    noremap <C-e> :BufExplorer<CR>
+    noremap <C-x> :bd<CR>
+    nnoremap <leader>k :bp<CR>
+    nnoremap <leader>j :bn<CR>
+
+  " Tab navigation
+    " Simlify tab navigation—TAB key cycles tabs
+    nnoremap <Tab> gt
+    nnoremap <S-Tab> gT
+    nnoremap tn :tabnew<CR>
+
+  " Autocomplete - MuComplete
+    set completeopt+=menuone
+    inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+    inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+    inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+    set completeopt+=noselect
+    set completeopt+=noinsert
+    set shortmess+=c   " Shut off completion messages
+    set belloff+=ctrlg " If Vim beeps during completion
+    let g:mucomplete#enable_auto_at_startup = 1
+
+" Language configuration
+  " Javascript
+  hi link javaScriptTemplateDelim String
+  hi link javaScriptTemplateVar Text
+  hi link javaScriptTemplateString String
+
+  " Use JSX for all JS
+  let g:jsx_ext_required = 0
+
+  " Enable flow
+  let g:flow#enable=1
+
+  " Hack autocomplete
+  let g:hack#omnifunc=1
+  autocmd BufNewFile,BufRead *.php setl omnifunc=hackcomplete#Complete
+
+  " Always format reason
+  autocmd BufWritePre *.re :ReasonPrettyPrint
+
+  " CSS sort
+    :command! SortCSSBraceContents :g#\({\n\)\@<=#.,/}/sort
+    :nmap <F10> :SortCSSBraceContents
+    " http://stackoverflow.com/questions/3050797/how-to-alphabetize-a-css-file-in-vim/3051140
+
+" Post-hooks (vary by environment)
+  if filereadable('~/.vimrc-post')
+    source '~/.vimrc-post'
+  endif
 
-" Strip trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
-
-" Include one blank line at end of all files
-set endofline
-
-" Various
-set hidden
-
-" Show wildcard options above command line
-set wildmenu
-
-" Show unfinished command in bottom right corner of the screen
-set showcmd
-
-" Allow backspace to work similarly to desktop editors
-set backspace=indent,eol,start
-
-" Left/right wrap as you'd expect
-set whichwrap+=h,l
-
-" One blank space on the left to give the text a bit of room to breathe
-set foldenable
-set foldlevelstart=20
-set foldcolumn=1
-
-" Auto indent new lines
-set autoindent
-
-" Don't automatically try to move the cursor to the 'start' of the line
-set nostartofline
-
-" Always show a status line
-set laststatus=2
-
-" Be helpful by asking the user to confirm instead of failing certain actions
-set confirm
-
-" Don't make sounds, make flashes
-set visualbell
-set noerrorbells
-
-" Allow mice
-set mouse=a
-
-" Command line height
-set cmdheight=2
-
-" When inputting commands, give the user some time to think
-set notimeout ttimeout ttimeoutlen=200
-
-" Use two spaces for tabs, and expand tabs to use spaces instead
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-
-" Store undo history in temp files
-set undofile
-
-" Don't redraw mid-macro
-" set lazyredraw
-
-" Vertical git diff
-set diffopt+=vertical
-
-" Show file explorer in a split panel
-let g:netrw_liststyle=3
-
-" Remember more
-set history=1000
-set undolevels=1000
-
-" Ignore some files
-set wildignore=*.swp,*.bak,*.pyc,*.class
-
-" Reflect Vim's status in the terminal title bar
-set title
-
-" No backup files will be kept around after successful writes
-set nobackup
-
-" Don't use swap files
-set noswapfile
-
-
-
-" GLOBAL SHORTCUTS
-" ================
-
-" More convenient leader (key needed to press for some combinations)
-let mapleader=","
-
-" Ctrl+space = close active window, tab, or Vim
-nnoremap <NUL> :q<CR>
-" Shift+space = close window and buffer
-nnoremap <Leader><Space> :bd<CR>
-
-" ,+delete = delete current file and close it
-"nnoremap <leader>delete :call delete(expand('%')) | bdelete!
-
-" Clear highlighted search hits with ,+' (keys are next to each other
-" on the keyboard in Dvorak)
-nnoremap <leader>' :nohl<CR>
-
-" Ctrl+p opens fuzzy search
-map <C-p> :CtrlP<CR>
-
-" Ctrl+t = new tab with fuzzy search active (speeds up flow)
-map <C-t> :tabnew<CR><C-p>
-
-" Ctrl-y = search all files
-"map <C-y> :Ack<space>
-map <C-y> :Ack<space>-Q<space>'
-
-" Ctrl+n = new tab with all-files search active (speeds up flow)
-map <C-n> :tabnew<CR>:Ack<Space>
-
-" Ctrl+e = show file explorer (tree view)
-nnoremap <C-e> :Lexplore<CR>:vertical<Space>resize<Space>50<CR>
-
-" Fugitive -- show a bit more than normal
-nmap <leader>gs :Gstatus<CR><C-w>20+
-nmap <leader>gpush :Gpush<CR>
-nmap <leader>gpom :Git pull origin master<CR>
-
-" Insert space in normal mode with ,+space
-"nnoremap <leader><space> i<space><esc>
-
-" ,+s = save session -- to open vim with saved session, `vim -S`
-nnoremap <leader>s :mksession!<CR>
-
-" F12 shows/hides line numbers
-nnoremap <F12> :set invnumber<CR>
-
-" F11 = toggle paste/nopaste mode
-set pastetoggle=<F11>
-
-" Simlify tab navigation—TAB key cycles tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap tn :tabnew<CR>
-
-" Copy all
-nnoremap <leader>a ggVGy
-
-" ,+O and ,+o to insert lines without entering insert mode
-nmap <Leader>O O<Esc>
-nmap <Leader>o o<Esc>
-
-" Leader + x = swap lines
-nnoremap <leader>x ddp
-nnoremap <leader>X ddkP
-
-" Make it easier to hit that damn : button
-nnoremap ; :
-
-" And don't start recording by mistake
-map q <Nop>
-
-" Avoid typo when trying to save (I don't know what :W does anyway)
-nnoremap :W :w
-
-" Leader + t = trim spaces from line ends
-nnoremap <Leader>t :%s/ \+$//<CR>
-
-" move vertically by visual line
-nnoremap j gj
-nnoremap k gk
-
-" Instead of 'yank line', 'yank to end of line' to be consistent with D
-map Y y$
-
-" 0 goes to first first non-blank character
-map 0 ^
-
-" Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
-
-" Ctrl+direction keys jumps to the split window in that direction
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Editing .vimrc should be easy
-nnoremap <leader>vv :tabnew $MYVIMRC<CR>
-nnoremap <leader>vs :so $MYVIMRC<CR>
-
-" Easier arrow function debugging in ES6
-" (Since otherwise debugging arrow functions requires inserting {} and
-" return)`
-nnoremap <leader>b i(a => {debugger})() \|\|
-
-" BUFFERS
-" =======
-
-" Show all buffers (using default buffer list)
-nnoremap <F2> :buffers<CR>:buffer<Space>
-
-" Quick navigation to buffers
-nnoremap <F1> :buffer<Space>
-
-" Toggle nice buffer explorer
-"nnoremap <F10> :MBEToggleAll<CR>
-
-" Buffer explorer is sized small and on the right of the content
-"let g:miniBufExplVSplit=30
-"let g:miniBufExplBRSplit = 1
-
-" PLUGIN CONFIGURATION
-" ====================
-
-" Use Silver Surfer for faster folder search
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" Sublime text style search-all using CtrlP
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_custom_ignore = '\.git$\|node_modules$\|public$\|tmp$\|bin$'
-
-" Syntastic configuration
-let g:syntastic_javascript_checkers = ['eslint']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-"let g:syntastic_loc_list_height = 1
-let g:syntastic_auto_loc_list = 0
-"let g:syntastic_echo_current_error = 0
-
-
-
-" MISC CONFIGURATION
-" ==================
-
-" Configure what to show in the title bar
-let &titlestring = "vim(" . expand("%:t") . ")"
-if &term == "screen"
-  set t_ts=^[k
-  set t_fs=^[\
-endif
-if &term == "screen" || &term == "xterm"
-  set title
-endif
+set modelines=1
+" vim:foldmethod=indent:foldlevel=0
