@@ -24,19 +24,21 @@
     Plugin 'jistr/vim-nerdtree-tabs'
     Plugin 'jlanzarotta/bufexplorer'
     Plugin 'lifepillar/vim-mucomplete'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'sbdchd/neoformat'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'scrooloose/nerdtree'
-    Plugin 'wincent/command-t'
-    Plugin 'majutsushi/tagbar'
     Plugin 'vim-scripts/restore_view.vim'
-    Plugin 'sbdchd/neoformat'
+    Plugin 'wincent/command-t'
+
+    " Colors
+    Plugin 'altercation/vim-colors-solarized'
+    Plugin 'chriskempson/base16-vim'
+    Plugin 'godlygeek/csapprox'
 
     " Mercurial integration
     Plugin 'ludovicchabant/vim-lawrencium'
     Plugin 'mhinz/vim-signify'
-
-    " Make gvim-only color schemes work in terminal vim
-    Plugin 'godlygeek/csapprox'
   call vundle#end()
   syntax on
   filetype plugin indent on
@@ -145,17 +147,29 @@
   autocmd VimResized * wincmd =
 
 " Colors
-  set background=dark
+  "set background=dark
+  "syntax enable
+  let g:solarized_termcolors=256
+  colorscheme solarized
   set t_Co=256
-  colorscheme woju
+  set background=light
+  hi Normal guibg=NONE ctermbg=NONE
+  hi DiffAdd ctermbg=148 ctermfg=15
+  hi DiffDelete ctermbg=1 ctermfg=15
+  hi DiffChange ctermbg=220 ctermfg=15
+  hi LineNr ctermbg=7 ctermfg=251
+  hi SignColumn ctermbg=7
+  hi FoldColumn ctermbg=15 ctermfg=251
+  hi VertSplit ctermbg=15 ctermfg=15
+  hi CursorLine ctermbg=7
+
   " Nice ones: PaperColor, pride, satori, ashen, getafe, 256-grayvim,
   " railscasts, woju, apprentice, blackboard, morning, lightning, whitebox,
   " default, skittles_berry, visualstudio, whitebox, eink, nofrils-dark,
-  " spring-night
   " nnoremap <leader>q :NextColorScheme<CR>
   " nnoremap <leader>; :PrevColorScheme<CR>
-  " let &colorcolumn=join(range(81,999),",")
-  " highlight ColorColumn ctermbg=234
+   let &colorcolumn=join(range(81,999),",") " Different bg past 80
+   highlight ColorColumn ctermbg=7
   " light: 253
 
 " Keyboard mappings & shortcuts
@@ -209,11 +223,8 @@
   vnoremap <C-d> y/<C-R>"<CR>
 
 " Folding
-  set foldenable
-  "set foldlevelstart=2
   set foldcolumn=2
-  "set foldmethod=syntax
-  "set foldmethod=indent
+  set foldmethod=syntax
   let javaScript_fold=2
   set foldlevelstart=2
   nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
