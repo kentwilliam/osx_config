@@ -153,15 +153,23 @@
   colorscheme solarized
   set t_Co=256
   set background=light
-  hi Normal guibg=NONE ctermbg=NONE
-  hi DiffAdd ctermbg=148 ctermfg=15
-  hi DiffDelete ctermbg=1 ctermfg=15
-  hi DiffChange ctermbg=220 ctermfg=15
-  hi LineNr ctermbg=7 ctermfg=251
-  hi SignColumn ctermbg=7
-  hi FoldColumn ctermbg=15 ctermfg=251
-  hi VertSplit ctermbg=15 ctermfg=15
+  hi CommandTCharMatched cterm=underline ctermfg=9
+  hi CommandTSelection cterm=none ctermbg=7
   hi CursorLine ctermbg=7
+  hi DiffAdd ctermbg=148 ctermfg=15
+  hi DiffChange ctermbg=220 ctermfg=15
+  hi DiffDelete ctermbg=1 ctermfg=15
+  hi FoldColumn ctermbg=15 ctermfg=251
+  hi Folded cterm=bold
+  hi LineNr cterm=bold ctermbg=7 ctermfg=251
+  hi Normal guibg=NONE ctermbg=NONE
+  hi SignColumn ctermbg=7
+  hi StatusLine ctermbg=15 ctermfg=9
+  hi StatusLineNC ctermbg=15 ctermfg=9
+  hi TabLine cterm=none ctermbg=7 ctermfg=9
+  hi TabLineFill cterm=none ctermbg=7
+  hi TabLineSel cterm=none ctermbg=9 ctermfg=15
+  hi VertSplit ctermbg=15 ctermfg=15
 
   " Nice ones: PaperColor, pride, satori, ashen, getafe, 256-grayvim,
   " railscasts, woju, apprentice, blackboard, morning, lightning, whitebox,
