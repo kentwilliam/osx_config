@@ -1,8 +1,8 @@
 " This file is formatted for folding by indentation
 
 " Pre-hooks (vary by environment)
-  if filereadable('~/.vimrc-pre')
-    source '~/.vimrc-pre'
+  if filereadable(expand('~/.vimrc-pre'))
+    source $HOME/.vimrc-pre
   endif
 
 " Plugins
@@ -27,6 +27,9 @@
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'scrooloose/nerdtree'
     Plugin 'wincent/command-t'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'vim-scripts/restore_view.vim'
+    Plugin 'sbdchd/neoformat'
 
     " Mercurial integration
     Plugin 'ludovicchabant/vim-lawrencium'
@@ -77,12 +80,6 @@
 
   " Left/right wrap as you'd expect
   set whichwrap+=h,l
-
-  " One blank space on the left to give the text a bit of room to breathe
-  set foldenable
-  set foldlevelstart=2
-  set foldcolumn=1
-  "set foldmethod=indent
 
   " Auto indent new lines
   set autoindent
@@ -155,10 +152,10 @@
   " railscasts, woju, apprentice, blackboard, morning, lightning, whitebox,
   " default, skittles_berry, visualstudio, whitebox, eink, nofrils-dark,
   " spring-night
-  nnoremap <leader>q :NextColorScheme<CR>
-  nnoremap <leader>; :PrevColorScheme<CR>
-  let &colorcolumn=join(range(81,999),",")
-  highlight ColorColumn ctermbg=234
+  " nnoremap <leader>q :NextColorScheme<CR>
+  " nnoremap <leader>; :PrevColorScheme<CR>
+  " let &colorcolumn=join(range(81,999),",")
+  " highlight ColorColumn ctermbg=234
   " light: 253
 
 " Keyboard mappings & shortcuts
@@ -211,6 +208,41 @@
   " Ctrl+D to search for visual selection
   vnoremap <C-d> y/<C-R>"<CR>
 
+" Folding
+  set foldenable
+  "set foldlevelstart=2
+  set foldcolumn=2
+  "set foldmethod=syntax
+  "set foldmethod=indent
+  let javaScript_fold=2
+  set foldlevelstart=2
+  nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+  vnoremap <Space> zf
+  "set foldmethod=expr
+  "" Shamelessly stolen from
+  "" https://vi.stackexchange.com/questions/2261/can-i-get-vim-to-fold-comments-when-using-foldmethod-indent
+  "set foldexpr=FoldMethod(v:lnum)
+  "function! FoldMethod(lnum)
+    ""get string of current line
+    "let crLine=getline(a:lnum)
+
+    "" check if empty line
+    "if empty(crLine) "Empty line or end comment
+      "return -1 " so same indent level as line before
+    "endif
+
+    "" check if comment
+    "let a:data=join( map(synstack(a:lnum, 1), 'synIDattr(v:val, "name")') )
+    "if a:data =~ ".*omment.*"
+      "return '='
+    "endif
+
+    ""Otherwise return foldlevel equal to indent /shiftwidth (like if
+    ""foldmethod=indent)
+    "else  "return indent base fold
+      "return indent(a:lnum)/&shiftwidth
+  "endfunction
+
 " Snippets & Code generation
   " Insert JS require(): Go to the top, paste the require statement, re-sort, then re-save
   nnoremap <C-v> gg/const<Return>Oconst <C-r>" = require('<C-r>"');<Esc>V/\v^\n<Return>k:sort<Return>:w<Return>:nohl<Return>
@@ -240,7 +272,7 @@
     augroup END
 
   " NERDTree
-    let NERDTreeWinSize = 70
+    let NERDTreeWinSize = 58
     nnoremap <F3> :NERDTree<CR>:vertical resize 60<CR>
     " Show current file in tree
     nnoremap <C-f> :NERDTreeFind<CR>
@@ -292,8 +324,12 @@
   let g:hack#omnifunc=1
   autocmd BufNewFile,BufRead *.php setl omnifunc=hackcomplete#Complete
 
-  " Always format reason
+  " Always format Reason
   autocmd BufWritePre *.re :ReasonPrettyPrint
+
+  " Always format JavaScript
+  autocmd BufWritePre *.js :Neoformat prettier
+
 
   " CSS sort
     :command! SortCSSBraceContents :g#\({\n\)\@<=#.,/}/sort
@@ -301,9 +337,9 @@
     " http://stackoverflow.com/questions/3050797/how-to-alphabetize-a-css-file-in-vim/3051140
 
 " Post-hooks (vary by environment)
-  if filereadable('~/.vimrc-post')
-    source '~/.vimrc-post'
+  if filereadable(expand('~/.vimrc-post'))
+    source $HOME/.vimrc-post
   endif
 
 set modelines=1
-" vim:foldmethod=indent:foldlevel=0
+" vim:foldmethod=indent:foldlevel=1
